@@ -36,6 +36,60 @@
     </div>
   </div>
   <script src="/assets/js/index.js"></script>
+  <script>
+    const saveBtn = document.querySelector('.save-note');
+
+    saveBtn.on("click", function(event) {
+      event.preventDefault();
+
+      const noteTitle = document.querySelector('.note-title');
+      const noteText = document.querySelector('.note-textarea');
+
+      let newNote = {
+        title: noteTitle,
+        text: noteText,
+      };
+
+      fetch(`/api/notes`, {
+        method: `POST`,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newNote),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('Note added!');
+          alert('Note added!');
+        })
+        .catch((error) => {
+          console.error('Error: ', error);
+        });
+
+      fetch(`/api/notes`, {
+        method: `GET`,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          const { title, text } = data;
+          if (data) {
+            noteTitle.textContent = title;
+            noteText.textContent = text;
+          } else {
+            noteTitle.textContent = '';
+            noteText.textContent = '';
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+    
+  </script>
 </body>
 
 </html>
