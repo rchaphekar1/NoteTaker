@@ -16,7 +16,7 @@
 
 ## Description
 
-https://github.com/rchaphekar1/TeamProfileGenerator
+https://github.com/rchaphekar1/NoteTaker
 
 Create a note taker application using express.js.
 
